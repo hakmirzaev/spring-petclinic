@@ -16,3 +16,4 @@ Branch: dependability-project
 10) No vulnerabilities reported (or fixes documented)
 
 (Each item is worth points according to the evaluation criteria.)
+
