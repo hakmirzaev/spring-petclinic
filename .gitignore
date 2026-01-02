@@ -48,3 +48,14 @@ _site/
 !petclinic.css
 .DS_Store
 target/
+
+# macOS
+.DS_Store
+
+# build outputs
+target/
+evidence/
+
+# generated reports (keep only screenshots)
+evidence/jacoco/
+evidence/pit-reports/
