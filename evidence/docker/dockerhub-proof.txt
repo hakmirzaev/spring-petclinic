@@ -52,3 +52,17 @@ ContainerID:
 curl: (7) Failed to connect to localhost port 8081 after 0 ms: Couldn't connect to server
 NAMES                      IMAGE       STATUS                    PORTS
 spring-petclinic-mysql-1   mysql:9.5   Up 11 minutes (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp
+latest: Pulling from hakmirzaev/spring-petclinic
+Digest: sha256:d2a02268d750848050319cd6e7febd6c2181fb139d8977bcbf3752f5b1be06fc
+Status: Image is up to date for hakmirzaev/spring-petclinic:latest
+docker.io/hakmirzaev/spring-petclinic:latest
+ContainerID: 83d50fbc2607f02f14ada8ac6743cb99fddac9c5dcbe1d52fb5e95377efa2f67
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (56) Recv failure: Connection reset by peer
+NAMES                      IMAGE                                STATUS                    PORTS
+eager_galois               hakmirzaev/spring-petclinic:latest   Up 3 seconds              0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+spring-petclinic-mysql-1   mysql:9.5                            Up 15 minutes (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp
+83d50fbc2607f02f14ada8ac6743cb99fddac9c5dcbe1d52fb5e95377efa2f67
+NOTE: Git commit SHA may differ from Docker image tag. Tested tag: latest
