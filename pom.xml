@@ -294,34 +294,63 @@
         <artifactId>pitest-maven</artifactId>
         <version>1.22.0</version>
 
-        <!-- This is the important part for JUnit 5 -->
-        <dependencies>
-          <dependency>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-junit5-plugin</artifactId>
-            <version>1.2.1</version>
-          </dependency>
-        </dependencies>
-
         <configuration>
-          <!-- adjust if needed, but these are safe defaults -->
+          <reportDir>${project.build.directory}/pit-reports</reportDir>
+          <timestampedReports>false</timestampedReports>
+
           <targetClasses>
+            <param>org.springframework.samples.petclinic.service.*</param>
             <param>org.springframework.samples.petclinic.*</param>
+            <param>org.springframework.samples.petclinic.*.*</param>
           </targetClasses>
+
           <targetTests>
+            <param>org.springframework.samples.petclinic.service.*</param>
             <param>org.springframework.samples.petclinic.*</param>
+            <param>org.springframework.samples.petclinic.*.*</param>
           </targetTests>
 
-          <threads>4</threads>
+          <excludedTestClasses>
+            <param>**/*IT*</param>
+            <param>**/*Integration*</param>
+            <param>org.springframework.samples.petclinic.PetClinicIntegrationTests</param>
+          </excludedTestClasses>
+
+          <threads>1</threads>
+          <timeoutFactor>3</timeoutFactor>
+          <timeoutConstant>4000</timeoutConstant>
+
           <outputFormats>
             <param>HTML</param>
             <param>XML</param>
           </outputFormats>
 
-          <!-- keeps runtime reasonable -->
-          <timeoutFactor>1.5</timeoutFactor>
-          <timeoutConstant>4000</timeoutConstant>
+          <verbose>true</verbose>
         </configuration>
+
+        <dependencies>
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.2.1</version>
+
+            <!-- IMPORTANT: prevents old junit-platform jars messing up discovery -->
+            <exclusions>
+              <exclusion>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-launcher</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-engine</artifactId>
+              </exclusion>
+              <exclusion>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-commons</artifactId>
+              </exclusion>
+            </exclusions>
+          </dependency>
+        </dependencies>
       </plugin>
       
     </plugins>
