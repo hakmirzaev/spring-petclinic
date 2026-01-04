@@ -1,8 +1,12 @@
 # Software Dependability Project – Spring PetClinic
 
 **Author:** Bekhruzjon Hakmirzaev  
-**University:** University of L'Aquila  
-**Course:** Software Design and Dependability  
+**Matricola:** NF22500050  
+**Email:** b.hakmirzaev@studenti.unisa.it  
+**University:** University of Salerno  
+**Program:** Master in Internet of Things (Department of Computer Engineering)  
+**Course:** Software Dependability  
+**Professor:** Dario Di Nucci  
 **Date:** January 2026
 
 ---
