@@ -21,9 +21,18 @@ jobs:
           java-version: '17'
           cache: maven
 
-      - name: Build + tests + JaCoCo report
+      - name: Build + tests + JaCoCo + PiTest
         run: |
-          mvn -B -ntp clean test jacoco:report
+          mvn -B -ntp clean test jacoco:report org.pitest:pitest-maven:mutationCoverage
+
+      - name: Upload PiTest report (artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: pitest-report
+          path: target/pit-reports/
+          if-no-files-found: error
+          retention-days: 14
+          
 
       - name: Upload JaCoCo report (artifact)
         uses: actions/upload-artifact@v4
