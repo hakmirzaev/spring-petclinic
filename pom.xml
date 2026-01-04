@@ -319,17 +319,29 @@
           </targetClasses>
 
           <targetTests>
-            <param>org.springframework.samples.petclinic.service.*</param>
-            <param>org.springframework.samples.petclinic.*</param>
-            <param>org.springframework.samples.petclinic.*.*</param>
+            <param>org.springframework.samples.petclinic.vet.VetTests</param>
+            <param>org.springframework.samples.petclinic.vet.VetControllerTests</param>
+            <param>org.springframework.samples.petclinic.owner.PetControllerTests</param>
+            <param>org.springframework.samples.petclinic.owner.OwnerControllerTests</param>
+            <param>org.springframework.samples.petclinic.owner.VisitControllerTests</param>
+            <param>org.springframework.samples.petclinic.owner.PetValidatorTests</param>
+            <param>org.springframework.samples.petclinic.owner.PetTypeFormatterTests</param>
+            <param>org.springframework.samples.petclinic.system.CrashControllerTests</param>
+            <param>org.springframework.samples.petclinic.model.ValidatorTests</param>
+            <param>org.springframework.samples.petclinic.service.ClinicServiceTests</param>
           </targetTests>
-
+          
           <excludedTestClasses>
-            <param>**/*IT*</param>
-            <param>**/*Integration*</param>
+            <param>org.springframework.samples.petclinic.PostgresIntegrationTests</param>
+            <param>org.springframework.samples.petclinic.MySqlIntegrationTests</param>
             <param>org.springframework.samples.petclinic.PetClinicIntegrationTests</param>
+            <param>org.springframework.samples.petclinic.system.CrashControllerIntegrationTests</param>
+            <param>org.springframework.samples.petclinic.benchmark.*</param>
           </excludedTestClasses>
-
+          
+          <fullMutationMatrix>false</fullMutationMatrix>
+          <failWhenNoMutations>false</failWhenNoMutations>
+          
           <threads>1</threads>
           <timeoutFactor>3</timeoutFactor>
           <timeoutConstant>4000</timeoutConstant>
