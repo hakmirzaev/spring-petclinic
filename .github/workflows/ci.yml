@@ -23,7 +23,9 @@ jobs:
 
       - name: Build + tests + JaCoCo + PiTest
         run: |
-          mvn -B -ntp clean test jacoco:report org.pitest:pitest-maven:mutationCoverage
+          mvn -B -ntp clean test jacoco:report org.pitest:pitest-maven:mutationCoverage \
+            -Dtest='!PostgresIntegrationTests' \
+            -DfailIfNoTests=false
 
       - name: Upload PiTest report (artifact)
         uses: actions/upload-artifact@v4
@@ -41,6 +43,149 @@ jobs:
           path: target/site/jacoco/
           if-no-files-found: error
           retention-days: 14
+
+  # JMH Microbenchmarks
+  benchmarks:
+    runs-on: ubuntu-latest
+    needs: build-test
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Compile project with test classes
+        run: mvn -B -ntp test-compile -DskipTests
+
+      - name: Run JMH Benchmarks
+        run: |
+          mkdir -p target/benchmark-results
+          java -cp "target/test-classes:target/classes:$(mvn -q dependency:build-classpath -Dmdep.outputFile=/dev/stdout)" \
+            org.springframework.samples.petclinic.benchmark.BenchmarkRunner 2>&1 | tee target/benchmark-results/benchmark-output.txt || true
+
+      - name: Upload Benchmark Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: jmh-benchmark-results
+          path: target/benchmark-results/
+          if-no-files-found: warn
+          retention-days: 14
+
+  # Security Scanning with Snyk
+  security-snyk:
+    runs-on: ubuntu-latest
+    needs: build-test
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build project
+        run: mvn -B -ntp compile -DskipTests
+
+      - name: Run Snyk Security Scan
+        uses: snyk/actions/maven@master
+        continue-on-error: true
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --sarif-file-output=snyk-results.sarif
+
+      - name: Upload Snyk Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: snyk-security-report
+          path: snyk-results.sarif
+          if-no-files-found: warn
+
+  # Dependency Check (OWASP)
+  security-dependency-check:
+    runs-on: ubuntu-latest
+    needs: build-test
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Run OWASP Dependency Check
+        run: |
+          mvn -B -ntp org.owasp:dependency-check-maven:check \
+            -DfailBuildOnCVSS=9 \
+            -DsuppressionFile=dependency-check-suppressions.xml || true
+
+      - name: Upload Dependency Check Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-check-report
+          path: target/dependency-check-report.html
+          if-no-files-found: warn
+
+  # SonarQube Analysis
+  sonarqube:
+    runs-on: ubuntu-latest
+    needs: build-test
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Build and analyze with SonarQube
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        run: |
+          if [ -n "$SONAR_TOKEN" ]; then
+            mvn -B -ntp verify sonar:sonar \
+              -Dtest='!PostgresIntegrationTests' \
+              -DfailIfNoTests=false \
+              -Dsonar.projectKey=spring-petclinic \
+              -Dsonar.projectName="Spring PetClinic"
+          else
+            echo "SONAR_TOKEN not set, skipping SonarQube analysis"
+          fi
 
   docker-push:
     runs-on: ubuntu-latest

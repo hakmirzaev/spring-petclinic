@@ -189,7 +189,69 @@ jml-verification/              # JML-annotated source files
 
 ---
 
-## 7. Quick Commands Reference
+## 7. JMH Microbenchmarks
+
+### Overview
+JMH (Java Microbenchmark Harness) benchmarks test the performance of the most demanding components in the application.
+
+### Benchmark Classes
+Located in `src/test/java/org/springframework/samples/petclinic/benchmark/`:
+
+- `DomainModelBenchmark.java` - Tests entity creation and manipulation performance
+- `OwnerRepositoryBenchmark.java` - Tests database query performance
+- `VetRepositoryBenchmark.java` - Tests caching behavior performance
+- `BenchmarkRunner.java` - Main runner class
+
+### Running Benchmarks Locally
+```bash
+mvn test-compile
+java -cp "target/test-classes:target/classes:$(mvn -q dependency:build-classpath -Dmdep.outputFile=/dev/stdout)" \
+  org.springframework.samples.petclinic.benchmark.BenchmarkRunner
+```
+
+### CI Integration
+Benchmarks run automatically in CI and results are uploaded as artifacts.
+
+---
+
+## 8. Security Analysis
+
+### Tools Used
+1. **Snyk** - Vulnerability scanning for dependencies
+2. **OWASP Dependency Check** - CVE scanning
+3. **SonarQube** - Code quality and security analysis
+
+### CI Integration
+All security scans run automatically in the CI pipeline:
+- `security-snyk` job - Snyk vulnerability scan
+- `security-dependency-check` job - OWASP dependency analysis
+- `sonarqube` job - SonarQube code analysis
+
+### Required Secrets for Security Scanning
+Add these to GitHub Secrets:
+- `SNYK_TOKEN` - Get from https://app.snyk.io/account
+- `SONAR_TOKEN` - Get from your SonarQube instance
+- `SONAR_HOST_URL` - Your SonarQube server URL
+
+### Running Security Scans Locally
+
+**OWASP Dependency Check:**
+```bash
+mvn org.owasp:dependency-check-maven:check
+# Report: target/dependency-check-report.html
+```
+
+**Snyk (requires CLI):**
+```bash
+snyk test --all-projects
+```
+
+### Suppressing False Positives
+Edit `dependency-check-suppressions.xml` to suppress known false positives.
+
+---
+
+## 9. Quick Commands Reference
 
 ```bash
 # Run tests with coverage
@@ -215,7 +277,7 @@ openjml --esc jml-verification/SimpleBaseEntity.java
 
 ---
 
-## 8. Submission Checklist
+## 10. Submission Checklist
 
 - [x] CI Pipeline configured (GitHub Actions)
 - [x] JaCoCo coverage reports generated
@@ -225,6 +287,8 @@ openjml --esc jml-verification/SimpleBaseEntity.java
 - [x] DockerHub image published
 - [x] JML specifications added to domain classes
 - [x] OpenJML verification executed
+- [x] JMH microbenchmarks implemented
+- [x] Security scanning (Snyk, OWASP, SonarQube)
 - [x] Evidence documentation complete
 
 ---
