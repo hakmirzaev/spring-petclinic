@@ -1,0 +1,45 @@
+DockerHub image proof
+Image: hakmirzaev/spring-petclinic:7c191ec
+
+Commands:
+docker pull hakmirzaev/spring-petclinic:7c191ec
+docker run --rm -p 8080:8080 hakmirzaev/spring-petclinic:7c191ec
+curl -I http://localhost:8080
+7c191ec: Pulling from hakmirzaev/spring-petclinic
+Digest: sha256:d2a02268d750848050319cd6e7febd6c2181fb139d8977bcbf3752f5b1be06fc
+Status: Image is up to date for hakmirzaev/spring-petclinic:7c191ec
+docker.io/hakmirzaev/spring-petclinic:7c191ec
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/1.1 200 
+Content-Type: text/html;charset=UTF-8
+Content-Language: en
+Date: Sun, 04 Jan 2026 18:53:25 GMT
+
+IMAGE                  STATUS                   PORTS
+spring-petclinic-app   Up 3 minutes             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+mysql:9.5              Up 3 minutes (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp
+
+---- DockerHub proof (pulled image) ----
+NOTE: Using host port 8081 because 8080 is already used by docker compose.
+Image: hakmirzaev/spring-petclinic:7c191ec
+
+ContainerID: 6ec5678d31301c51c9b2afeb5cc6184e816632e5e7e406da27cb73c1d117e559
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+curl: (56) Recv failure: Connection reset by peer
+NAMES                      IMAGE                                 STATUS                   PORTS
+reverent_saha              hakmirzaev/spring-petclinic:7c191ec   Up 3 seconds             0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
+spring-petclinic-app-1     spring-petclinic-app                  Up 5 minutes             0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+spring-petclinic-mysql-1   mysql:9.5                             Up 6 minutes (healthy)   0.0.0.0:3306->3306/tcp, [::]:3306->3306/tcp
+6ec5678d31301c51c9b2afeb5cc6184e816632e5e7e406da27cb73c1d117e559
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+HTTP/1.1 200 
+Content-Type: text/html;charset=UTF-8
+Content-Language: en
+Date: Sun, 04 Jan 2026 18:58:15 GMT
+
