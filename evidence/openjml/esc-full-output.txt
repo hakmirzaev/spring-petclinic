@@ -1,0 +1,152 @@
+Full ESC Verification Output (All Domain Classes)
+Generated: Sun Jan  4 20:32:55 CET 2026
+==================================================
+
+jml-verification/PetValidator.java:17: warning: A non-pure method is being called where it is not permitted: NamedEntity.getName()
+    //@ ensures pet.getName() == null ==> \result == false;
+                           ^
+jml-verification/PetValidator.java:18: warning: A non-pure method is being called where it is not permitted: Pet.getBirthDate()
+    //@ ensures pet.getBirthDate() == null ==> \result == false;
+                                ^
+jml-verification/PetValidator.java:19: warning: A non-pure method is being called where it is not permitted: Pet.getPetType()
+    //@ ensures (pet.isNew() && pet.getPetType() == null) ==> \result == false;
+                                              ^
+jml-verification/PetValidator.java:61: warning: A non-pure method is being called where it is not permitted: Visit.getDescription()
+    //@ ensures visit.getDescription() == null ==> \result == false;
+                                    ^
+jml-verification/NamedEntity.java:38: verify: The prover cannot establish an assertion (Postcondition: /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/Object.jml:219:) in method toString
+        return this.getName() != null ? this.getName() : "";
+        ^
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/Object.jml:219: verify: Associated declaration: jml-verification/NamedEntity.java:38:
+    @     ensures \result == ptoString();
+          ^
+jml-verification/NamedEntity.java:38: verify: The prover cannot establish an assertion (ExceptionalPostcondition: /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/Object.jml:216:) in method toString
+        return this.getName() != null ? this.getName() : "";
+                           ^
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/Object.jml:216: verify: Associated declaration: jml-verification/NamedEntity.java:38:
+    /*-RAC@   public normal_behavior // FIXME - do we want this to be normal_behavior?
+                     ^
+jml-verification/Owner.java:107: verify: The prover cannot establish an assertion (Assignable: jml-verification/Owner.java:103:) in method addPet: values
+            this.pets.add(pet);
+                         ^
+jml-verification/Owner.java:103: verify: Associated declaration: jml-verification/Owner.java:107:
+    //@ assignable pets;
+        ^
+jml-verification/Owner.java:107: verify: The prover cannot establish an assertion (Assignable: jml-verification/Owner.java:103:) in method addPet: values
+            this.pets.add(pet);
+                         ^
+jml-verification/Owner.java:103: verify: Associated declaration: jml-verification/Owner.java:107:
+    //@ assignable pets;
+        ^
+jml-verification/Owner.java:120: verify: The prover cannot establish an assertion (Postcondition: jml-verification/Owner.java:116:) in method getPetCount
+        return this.pets.size();
+        ^
+jml-verification/Owner.java:116: verify: Associated declaration: jml-verification/Owner.java:120:
+    //@ ensures \result >= 0;
+        ^
+jml-verification/Owner.java:141: verify: The prover cannot establish an assertion (Postcondition: jml-verification/Owner.java:138:) in method hasPets
+        return !this.pets.isEmpty();
+        ^
+jml-verification/Owner.java:138: verify: Associated declaration: jml-verification/Owner.java:141:
+    //@ ensures \result == (pets.size() > 0);
+        ^
+jml-verification/Pet.java:84: verify: The prover cannot establish an assertion (Assignable: jml-verification/Pet.java:81:) in method addVisit: values
+        this.visits.add(visit);
+                       ^
+jml-verification/Pet.java:81: verify: Associated declaration: jml-verification/Pet.java:84:
+    //@ assignable visits;
+        ^
+jml-verification/Pet.java:84: verify: The prover cannot establish an assertion (Assignable: jml-verification/Pet.java:81:) in method addVisit: values
+        this.visits.add(visit);
+                       ^
+jml-verification/Pet.java:81: verify: Associated declaration: jml-verification/Pet.java:84:
+    //@ assignable visits;
+        ^
+jml-verification/Pet.java:96: verify: The prover cannot establish an assertion (Postcondition: jml-verification/Pet.java:92:) in method getVisitCount
+        return this.visits.size();
+        ^
+jml-verification/Pet.java:92: verify: Associated declaration: jml-verification/Pet.java:96:
+    //@ ensures \result >= 0;
+        ^
+jml-verification/Pet.java:107: verify: The prover cannot establish an assertion (Postcondition: jml-verification/Pet.java:104:) in method hasVisits
+        return !this.visits.isEmpty();
+        ^
+jml-verification/Pet.java:104: verify: Associated declaration: jml-verification/Pet.java:107:
+    //@ ensures \result == (visits.size() > 0);
+        ^
+jml-verification/PetValidator.java:69: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297:) in method isValid
+Note: Call stack
+  /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:949: java.lang.String.charAt
+  jml-verification/PetValidator.java:23: java.lang.String.trim
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297: verify: Associated declaration: jml-verification/PetValidator.java:69:
+    public /*@ spec_pure @*/ char charAt(int index)
+                                  ^
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/CharSequence.jml:79: verify: Precondition conjunct is false: 0 <= index < charArray.length
+      @      requires 0 <= index < charArray.length;
+                                 ^
+jml-verification/PetValidator.java:69: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297:) in method isValidName
+Note: Call stack
+  /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:949: java.lang.String.charAt
+  jml-verification/PetValidator.java:50: java.lang.String.trim
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297: verify: Associated declaration: jml-verification/PetValidator.java:69:
+    public /*@ spec_pure @*/ char charAt(int index)
+                                  ^
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/CharSequence.jml:79: verify: Precondition conjunct is false: 0 <= index < charArray.length
+      @      requires 0 <= index < charArray.length;
+                                 ^
+jml-verification/PetValidator.java:69: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297:) in method isValidName
+Note: Call stack
+  /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:949: java.lang.String.charAt
+  jml-verification/PetValidator.java:47: java.lang.String.trim
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297: verify: Associated declaration: jml-verification/PetValidator.java:69:
+    public /*@ spec_pure @*/ char charAt(int index)
+                                  ^
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/CharSequence.jml:79: verify: Precondition conjunct is false: 0 <= index < charArray.length
+      @      requires 0 <= index < charArray.length;
+                                 ^
+jml-verification/PetValidator.java:69: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297:) in method isValidName
+Note: Call stack
+  /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:949: java.lang.String.charAt
+  jml-verification/PetValidator.java:46: java.lang.String.trim
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297: verify: Associated declaration: jml-verification/PetValidator.java:69:
+    public /*@ spec_pure @*/ char charAt(int index)
+                                  ^
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/CharSequence.jml:79: verify: Precondition conjunct is false: 0 <= index < charArray.length
+      @      requires 0 <= index < charArray.length;
+                                 ^
+jml-verification/PetValidator.java:69: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297:) in method isValidVisit
+Note: Call stack
+  /Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:949: java.lang.String.charAt
+  jml-verification/PetValidator.java:64: java.lang.String.trim
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/String.jml:297: verify: Associated declaration: jml-verification/PetValidator.java:69:
+    public /*@ spec_pure @*/ char charAt(int index)
+                                  ^
+/Users/bekhruzjonhakmirzaev/tools/openjml/openjml-21/specs/java/lang/CharSequence.jml:79: verify: Precondition conjunct is false: 0 <= index < charArray.length
+      @      requires 0 <= index < charArray.length;
+                                 ^
+jml-verification/Vet.java:56: verify: The prover cannot establish an assertion (Assignable: jml-verification/Vet.java:53:) in method addSpecialty: values
+        this.specialties.add(specialty);
+                            ^
+jml-verification/Vet.java:53: verify: Associated declaration: jml-verification/Vet.java:56:
+    //@ assignable specialties;
+        ^
+jml-verification/Vet.java:56: verify: The prover cannot establish an assertion (Assignable: jml-verification/Vet.java:53:) in method addSpecialty: values
+        this.specialties.add(specialty);
+                            ^
+jml-verification/Vet.java:53: verify: Associated declaration: jml-verification/Vet.java:56:
+    //@ assignable specialties;
+        ^
+jml-verification/Vet.java:44: verify: The prover cannot establish an assertion (Postcondition: jml-verification/Vet.java:40:) in method getNrOfSpecialties
+        return this.specialties.size();
+        ^
+jml-verification/Vet.java:40: verify: Associated declaration: jml-verification/Vet.java:44:
+    //@ ensures \result >= 0;
+        ^
+jml-verification/Vet.java:67: verify: The prover cannot establish an assertion (Postcondition: jml-verification/Vet.java:64:) in method hasSpecialties
+        return !this.specialties.isEmpty();
+        ^
+jml-verification/Vet.java:64: verify: Associated declaration: jml-verification/Vet.java:67:
+    //@ ensures \result == (specialties.size() > 0);
+        ^
+4 warnings
+43 verification failures
