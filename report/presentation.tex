@@ -11,11 +11,20 @@
 % Code style
 \lstdefinestyle{javastyle}{
     language=Java,
-    basicstyle=\ttfamily\scriptsize,
+    basicstyle=\ttfamily\tiny,
     keywordstyle=\color{blue}\bfseries,
     commentstyle=\color{gray}\itshape,
     numbers=left,
     numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true,
+    showstringspaces=false
+}
+
+\lstdefinestyle{yamlstyle}{
+    basicstyle=\ttfamily\tiny,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
     frame=single,
     breaklines=true
 }
@@ -114,7 +123,17 @@
 \end{itemize}
 \end{columns}
 
-\vspace{0.3cm}
+\vspace{0.2cm}
+\begin{lstlisting}[style=yamlstyle, basicstyle=\ttfamily\tiny]
+jobs:
+  build-test:
+    steps:
+      - name: Build + tests + JaCoCo
+        run: mvn test jacoco:report
+      - name: Run PITest
+        run: mvn pitest:mutationCoverage
+\end{lstlisting}
+
 \begin{center}
 \small Pipeline executes automatically on every push
 \end{center}
@@ -139,12 +158,25 @@ petclinic.system & 74\% & n/a \\
 \end{tabular}
 \end{table}
 
-\vspace{0.3cm}
+\begin{columns}
+\column{0.5\textwidth}
 \begin{itemize}
-    \item \textbf{108 methods} tested across all packages
-    \item Comprehensive coverage of production code paths
-    \item Critical packages (vet, model) achieve 100\% coverage
+    \item \textbf{108 methods} tested
+    \item Comprehensive coverage
+    \item Critical packages: 100\%
 \end{itemize}
+
+\column{0.5\textwidth}
+\begin{lstlisting}[style=javastyle, basicstyle=\ttfamily\tiny]
+@Test
+void testFindOwner() {
+    Owner owner = ownerRepo
+        .findById(1);
+    assertThat(owner)
+        .isNotNull();
+}
+\end{lstlisting}
+\end{columns}
 \end{frame}
 
 % Slide 5: Mutation Testing Results
@@ -188,6 +220,21 @@ petclinic.system & 74\% & n/a \\
     \item Method contracts verified
 \end{itemize}
 
+\vspace{0.1cm}
+\begin{lstlisting}[style=javastyle, basicstyle=\ttfamily\tiny]
+//@ ensures \result == id;
+//@ pure
+public Integer getId() {
+    return id;
+}
+
+//@ ensures \result == (id == null);
+//@ pure
+public boolean isNew() {
+    return this.id == null;
+}
+\end{lstlisting}
+
 \column{0.5\textwidth}
 \textbf{Security Analysis:}
 \begin{itemize}
@@ -196,9 +243,21 @@ petclinic.system & 74\% & n/a \\
     \item \textcolor{green}{SonarQube:} No security hotspots
     \item \textbf{Result:} Clean security posture
 \end{itemize}
+
+\vspace{0.1cm}
+\begin{lstlisting}[style=yamlstyle, basicstyle=\ttfamily\tiny]
+# Docker Compose
+services:
+  mysql:
+    image: mysql:9.5
+  app:
+    build: .
+    depends_on:
+      mysql:
+        condition: healthy
+\end{lstlisting}
 \end{columns}
 
-\vspace{0.3cm}
 \begin{center}
 \small Multi-layered security approach ensures application safety
 \end{center}

@@ -1,6 +1,6 @@
 # Presentation Speech Script
 ## Software Dependability Project - Spring PetClinic
-**Duration: 3 minutes (approximately 20-25 seconds per slide)**
+**Duration: 4 minutes (approximately 26-30 seconds per slide)**
 
 ---
 
@@ -19,13 +19,13 @@
 
 ---
 
-## Slide 4: Methodology - CI/CD Pipeline (25 seconds)
-**"I implemented a comprehensive GitHub Actions workflow that executes automatically on every push. The pipeline consists of six parallel jobs: build-test runs tests and generates coverage reports, benchmarks execute performance tests, security-snyk scans dependencies, security-dependency-check performs OWASP analysis, sonarqube conducts static code analysis, and docker-push publishes the container image. I integrated industry-standard tools including JaCoCo for coverage, PITest for mutation testing, OpenJML for formal verification, JMH for benchmarks, and multiple security scanners. This ensures every code change is automatically validated."**
+## Slide 4: Methodology - CI/CD Pipeline (30 seconds)
+**"I implemented a comprehensive GitHub Actions workflow that executes automatically on every push. The pipeline consists of six parallel jobs: build-test runs tests and generates coverage reports, benchmarks execute performance tests, security-snyk scans dependencies, security-dependency-check performs OWASP analysis, sonarqube conducts static code analysis, and docker-push publishes the container image. As you can see in this code snippet, the workflow is defined in YAML format, with each job containing specific steps. For example, the build-test job runs Maven commands to execute tests with JaCoCo coverage and PITest mutation testing. I integrated industry-standard tools including JaCoCo for coverage, PITest for mutation testing, OpenJML for formal verification, JMH for benchmarks, and multiple security scanners. This ensures every code change is automatically validated."**
 
 ---
 
-## Slide 5: Results - Test Coverage (25 seconds)
-**"JaCoCo analysis reveals excellent test coverage results. The total line coverage is 98 percent, with branch coverage at 84 percent. Critical packages like vet and model achieve 100 percent coverage, while the owner package reaches 93 percent line coverage. Overall, 108 methods were tested across all packages. This demonstrates comprehensive testing of production code paths, ensuring that the majority of the codebase is validated by automated tests."**
+## Slide 5: Results - Test Coverage (28 seconds)
+**"JaCoCo analysis reveals excellent test coverage results. The total line coverage is 98 percent, with branch coverage at 84 percent. Critical packages like vet and model achieve 100 percent coverage, while the owner package reaches 93 percent line coverage. Overall, 108 methods were tested across all packages. Here you can see a simple example of one of our test cases - this test verifies that the owner repository correctly retrieves an owner by ID. This demonstrates comprehensive testing of production code paths, ensuring that the majority of the codebase is validated by automated tests."**
 
 ---
 
@@ -34,8 +34,8 @@
 
 ---
 
-## Slide 7: Formal Verification & Security (25 seconds)
-**"For formal verification, I annotated 11 classes with JML specifications, and successfully verified 3 classes using Extended Static Checking. All files passed type checking, confirming that method contracts are consistent with implementation. For security analysis, I used three tools: Snyk found no high or critical vulnerabilities, OWASP Dependency Check reported no CVEs above threshold, and SonarQube identified no security hotspots. This multi-layered security approach ensures the application maintains a clean security posture."**
+## Slide 7: Formal Verification & Security (32 seconds)
+**"For formal verification, I annotated 11 classes with JML specifications, and successfully verified 3 classes using Extended Static Checking. Here you can see a concrete example of JML annotations - the getId method has a postcondition ensuring it returns the id field, and the isNew method specifies that it returns true if and only if id is null. These annotations are verified by OpenJML using SMT solvers. All files passed type checking, confirming that method contracts are consistent with implementation. For security analysis, I used three tools: Snyk found no high or critical vulnerabilities, OWASP Dependency Check reported no CVEs above threshold, and SonarQube identified no security hotspots. The Docker Compose configuration shown here ensures proper service dependencies and health checks. This multi-layered security approach ensures the application maintains a clean security posture."**
 
 ---
 
@@ -51,15 +51,15 @@
 
 ## Timing Summary
 - **Slide 1:** 5 seconds
-- **Slide 2:** 25 seconds
-- **Slide 3:** 25 seconds
-- **Slide 4:** 25 seconds
-- **Slide 5:** 25 seconds
-- **Slide 6:** 25 seconds
-- **Slide 7:** 25 seconds
-- **Slide 8:** 25 seconds
-- **Slide 9:** 20 seconds
-- **Total:** ~3 minutes
+- **Slide 2:** 28 seconds
+- **Slide 3:** 28 seconds
+- **Slide 4:** 30 seconds (includes code explanation)
+- **Slide 5:** 28 seconds (includes test example)
+- **Slide 6:** 28 seconds
+- **Slide 7:** 32 seconds (includes JML and Docker examples)
+- **Slide 8:** 28 seconds
+- **Slide 9:** 25 seconds
+- **Total:** ~4 minutes
 
 ---
 
