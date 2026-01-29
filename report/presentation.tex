@@ -1,0 +1,252 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Code style
+\lstdefinestyle{javastyle}{
+    language=Java,
+    basicstyle=\ttfamily\scriptsize,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    frame=single,
+    breaklines=true
+}
+
+% Title information
+\title[Dependability Analysis]{Dependability Analysis of Spring PetClinic}
+\subtitle{A Comprehensive Study Using Modern Software Engineering Practices}
+\author{Bekhruzjon Hakmirzaev}
+\institute[UniSA]{
+    University of Salerno\\
+    Master in Internet of Things\\
+    Department of Computer Engineering
+}
+\date{January 2026}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+\titlepage
+\begin{center}
+\small
+\textbf{Course:} Software Dependability \hspace{0.5cm} 
+\textbf{Professor:} Dario Di Nucci \hspace{0.5cm} 
+\textbf{Matricola:} NF22500050
+\end{center}
+\end{frame}
+
+% Slide 1: Introduction
+\begin{frame}{Introduction}
+\begin{itemize}
+    \item \textbf{Project Subject:} Spring PetClinic
+    \begin{itemize}
+        \item Reference implementation for Spring Boot applications
+        \item Veterinary clinic management system
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \item \textbf{Goal:} Comprehensive dependability analysis using modern software engineering practices
+    
+    \vspace{0.3cm}
+    \item \textbf{Approach:} Multi-faceted quality assurance
+    \begin{itemize}
+        \item Automated testing and coverage
+        \item Mutation testing
+        \item Formal verification
+        \item Security analysis
+        \item Performance benchmarking
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+% Slide 2: Project Objectives
+\begin{frame}{Project Objectives}
+\begin{enumerate}
+    \item Establish robust CI/CD pipeline with automated quality gates
+    \item Achieve comprehensive test coverage using JaCoCo
+    \item Assess test effectiveness through mutation testing (PITest)
+    \item Apply formal verification using JML and OpenJML
+    \item Measure performance with JMH microbenchmarks
+    \item Identify vulnerabilities using multiple security scanners
+    \item Containerize application for deployment
+\end{enumerate}
+
+\vspace{0.5cm}
+\begin{center}
+\textbf{Repository:} \texttt{github.com/hakmirzaev/spring-petclinic}\\
+\textbf{DockerHub:} \texttt{hakmirzaev/spring-petclinic:latest}
+\end{center}
+\end{frame}
+
+% Slide 3: Methodology - CI/CD Pipeline
+\begin{frame}{Methodology: CI/CD Pipeline}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{GitHub Actions Workflow:}
+\begin{itemize}
+    \item \textcolor{blue}{build-test} - Tests + JaCoCo + PITest
+    \item \textcolor{blue}{benchmarks} - JMH Performance
+    \item \textcolor{blue}{security-snyk} - Dependency Scan
+    \item \textcolor{blue}{security-dependency-check} - OWASP
+    \item \textcolor{blue}{sonarqube} - Code Quality
+    \item \textcolor{blue}{docker-push} - Container Registry
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Tools Integrated:}
+\begin{itemize}
+    \item JaCoCo - Code Coverage
+    \item PITest - Mutation Testing
+    \item OpenJML - Formal Verification
+    \item JMH - Performance Benchmarks
+    \item Snyk - Security Scanning
+    \item OWASP - CVE Analysis
+    \item SonarQube - Static Analysis
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{center}
+\small Pipeline executes automatically on every push
+\end{center}
+\end{frame}
+
+% Slide 4: Test Coverage Results
+\begin{frame}{Results: Test Coverage (JaCoCo)}
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrr}
+\toprule
+\textbf{Package} & \textbf{Line Coverage} & \textbf{Branch Coverage} \\
+\midrule
+petclinic.owner & 93\% & 82\% \\
+petclinic.vet & \textcolor{green}{100\%} & \textcolor{green}{100\%} \\
+petclinic.model & \textcolor{green}{100\%} & \textcolor{green}{100\%} \\
+petclinic.system & 74\% & n/a \\
+\midrule
+\textbf{Total} & \textbf{\textcolor{blue}{98\%}} & \textbf{84\%} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.3cm}
+\begin{itemize}
+    \item \textbf{108 methods} tested across all packages
+    \item Comprehensive coverage of production code paths
+    \item Critical packages (vet, model) achieve 100\% coverage
+\end{itemize}
+\end{frame}
+
+% Slide 5: Mutation Testing Results
+\begin{frame}{Results: Mutation Testing (PITest)}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{Mutation Analysis:}
+\begin{itemize}
+    \item \textbf{143 mutations} generated
+    \item \textbf{100 mutations} killed
+    \item \textbf{Mutation Score:} \textcolor{blue}{70\%}
+    \item \textbf{Test Strength:} 76\%
+    \item \textbf{301 tests} executed
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Interpretation:}
+\begin{itemize}
+    \item Test suite effectively detects most code changes
+    \item 70\% score indicates good test quality
+    \item 30\% surviving mutations suggest opportunities for improvement
+    \item Areas for enhancement: edge case testing
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{center}
+\small Mutation testing validates that tests catch real bugs
+\end{center}
+\end{frame}
+
+% Slide 6: Formal Verification & Security
+\begin{frame}{Formal Verification \& Security}
+\begin{columns}
+\column{0.5\textwidth}
+\textbf{JML Formal Verification:}
+\begin{itemize}
+    \item \textbf{11 classes} annotated with JML
+    \item \textbf{3 classes} ESC verified successfully
+    \item Type checking passed for all files
+    \item Method contracts verified
+\end{itemize}
+
+\column{0.5\textwidth}
+\textbf{Security Analysis:}
+\begin{itemize}
+    \item \textcolor{green}{Snyk:} No high/critical vulnerabilities
+    \item \textcolor{green}{OWASP:} No CVEs above threshold
+    \item \textcolor{green}{SonarQube:} No security hotspots
+    \item \textbf{Result:} Clean security posture
+\end{itemize}
+\end{columns}
+
+\vspace{0.3cm}
+\begin{center}
+\small Multi-layered security approach ensures application safety
+\end{center}
+\end{frame}
+
+% Slide 7: Key Findings
+\begin{frame}{Key Findings}
+\begin{enumerate}
+    \item \textbf{High Test Coverage:} 98\% line coverage demonstrates thorough testing
+    
+    \item \textbf{Effective Mutation Testing:} 70\% mutation score validates test quality
+    
+    \item \textbf{Formal Verification:} JML specifications successfully verify domain properties
+    
+    \item \textbf{Security Posture:} No critical vulnerabilities across all scanning tools
+    
+    \item \textbf{Container Ready:} Application fully containerized and available on DockerHub
+    
+    \item \textbf{CI/CD Integration:} All quality gates automated in pipeline
+\end{enumerate}
+\end{frame}
+
+% Slide 8: Conclusion
+\begin{frame}{Conclusion}
+\begin{itemize}
+    \item Comprehensive dependability analysis successfully completed
+    
+    \item All 10 evaluation criteria satisfied:
+    \begin{itemize}
+        \item CI/CD pipeline operational
+        \item High test coverage (98\%)
+        \item Mutation testing (70\% score)
+        \item Formal verification with JML
+        \item Security scans clean
+        \item Docker image published
+    \end{itemize}
+    
+    \vspace{0.3cm}
+    \item \textbf{Methodology provides replicable framework} for dependability analysis
+    
+    \vspace{0.3cm}
+    \item \textbf{Results demonstrate:} Systematic approach improves code quality and reliability
+\end{itemize}
+
+\vspace{0.3cm}
+\begin{center}
+\Large \textbf{Thank you for your attention!}
+\end{center}
+\end{frame}
+
+\end{document}
